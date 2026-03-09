@@ -1,0 +1,17 @@
+export const CLIENTS = 'clients';
+export const CASES = 'cases';
+export const MOVEMENTS = 'movements';
+export const DEADLINES = 'deadlines';
+export const APPOINTMENTS = 'appointments';
+export const CONTRACTS = 'contracts';
+export const INSTALLMENTS = 'installments';
+export const FINANCIAL_ENTRIES = 'financial_entries';
+export const DOCUMENTS = 'documents';
+export const TEMPLATES = 'templates';
+export const MESSAGE_TEMPLATES = 'message_templates';
+export const COMMUNICATIONS = 'communications';
+export const LEADS = 'leads';
+export const TASKS = 'tasks';
+export const TIME_ENTRIES = 'time_entries';
+export const USER_PROFILES = 'user_profiles';
+export const OFFICE_DATA = 'office_data';

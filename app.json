@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "AdvogaPlan",
+    "slug": "advogaplan",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "scheme": "advogaplan",
+    "userInterfaceStyle": "automatic",
+    "platforms": ["ios", "android"],
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#1e3a5f",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "bundleIdentifier": "com.advogaplan.app",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Necessario para escanear documentos e tirar fotos",
+        "NSPhotoLibraryUsageDescription": "Necessario para anexar documentos e fotos",
+        "NSFaceIDUsageDescription": "Para login rapido com biometria"
+      }
+    },
+    "android": {
+      "package": "com.advogaplan.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#1e3a5f"
+      },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      ["expo-camera", { "cameraPermission": "Necessario para escanear documentos" }],
+      "expo-document-picker",
+      ["expo-notifications", { "icon": "./src/assets/images/notification-icon.png" }],
+      "expo-local-authentication",
+      "expo-font"
+    ]
+  }
+}

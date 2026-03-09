@@ -6,35 +6,43 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeColors } from '../../store/ThemeContext';
 
 interface KeyboardWrapperProps {
   children: ReactNode;
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;
+  scrollEnabled?: boolean;
+  keyboardVerticalOffset?: number;
 }
 
 export default function KeyboardWrapper({
   children,
   style,
   contentContainerStyle,
+  scrollEnabled = true,
+  keyboardVerticalOffset = 0,
 }: KeyboardWrapperProps) {
-  const { colors } = useTheme();
+  const colors = useThemeColors();
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[styles.container, { backgroundColor: colors.background }, style]}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+      keyboardVerticalOffset={keyboardVerticalOffset}
     >
-      <ScrollView
-        bounces={false}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={[styles.scrollContent, contentContainerStyle]}
-      >
-        {children}
-      </ScrollView>
+      {scrollEnabled ? (
+        <ScrollView
+          contentContainerStyle={[styles.scrollContent, contentContainerStyle]}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+          {children}
+        </ScrollView>
+      ) : (
+        children
+      )}
     </KeyboardAvoidingView>
   );
 }

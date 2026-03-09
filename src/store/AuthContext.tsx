@@ -99,35 +99,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
   }, []);
 
-  const attemptBiometricAuth = useCallback(async (): Promise<boolean> => {
-    try {
-      const biometricEnabled = await AsyncStorage.getItem(BIOMETRIC_ENABLED_KEY);
-      if (biometricEnabled !== 'true') {
-        return false;
-      }
-
-      const compatible = await LocalAuthentication.hasHardwareAsync();
-      if (!compatible) {
-        return false;
-      }
-
-      const enrolled = await LocalAuthentication.isEnrolledAsync();
-      if (!enrolled) {
-        return false;
-      }
-
-      const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Autentique-se para acessar o AdvogaPlan',
-        cancelLabel: 'Cancelar',
-        disableDeviceFallback: false,
-      });
-
-      return result.success;
-    } catch {
-      return false;
-    }
-  }, []);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
       try {
@@ -312,35 +283,31 @@ export function useAuth(): AuthContextType {
   return context;
 }
 
-export { attemptBiometricAuth };
-
-function attemptBiometricAuth(): Promise<boolean> {
-  return (async () => {
-    try {
-      const biometricEnabled = await AsyncStorage.getItem(BIOMETRIC_ENABLED_KEY);
-      if (biometricEnabled !== 'true') {
-        return false;
-      }
-
-      const compatible = await LocalAuthentication.hasHardwareAsync();
-      if (!compatible) {
-        return false;
-      }
-
-      const enrolled = await LocalAuthentication.isEnrolledAsync();
-      if (!enrolled) {
-        return false;
-      }
-
-      const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Autentique-se para acessar o AdvogaPlan',
-        cancelLabel: 'Cancelar',
-        disableDeviceFallback: false,
-      });
-
-      return result.success;
-    } catch {
+export async function attemptBiometricAuth(): Promise<boolean> {
+  try {
+    const biometricEnabled = await AsyncStorage.getItem(BIOMETRIC_ENABLED_KEY);
+    if (biometricEnabled !== 'true') {
       return false;
     }
-  })();
+
+    const compatible = await LocalAuthentication.hasHardwareAsync();
+    if (!compatible) {
+      return false;
+    }
+
+    const enrolled = await LocalAuthentication.isEnrolledAsync();
+    if (!enrolled) {
+      return false;
+    }
+
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Autentique-se para acessar o AdvogaPlan',
+      cancelLabel: 'Cancelar',
+      disableDeviceFallback: false,
+    });
+
+    return result.success;
+  } catch {
+    return false;
+  }
 }

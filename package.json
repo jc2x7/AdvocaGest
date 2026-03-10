@@ -46,8 +46,7 @@
     "react-native-vector-icons": "^10.2.0"
   },
   "devDependencies": {
-    "@types/react": "~19.0.0",
-    "@types/react-native": "~0.73.0",
+    "@types/react": "~19.2.0",
     "eslint": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
